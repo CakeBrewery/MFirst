@@ -15,7 +15,7 @@ angular.module('clientApp')
       'Karma'
     ];
 
-    $scope.current_app = appState.getCurrentApp(); 
+    $scope.app = appState.getApp(); 
 
     $scope.showHtml = function(){
     	$window.alert(appState.getHTML()); 
@@ -25,6 +25,22 @@ angular.module('clientApp')
     $scope.showApp = function(){
       var newWindow = window.open();
       newWindow.document.write(appState.getHTML());
+    };
+
+    $scope.addComponent = function(){
+      appState.addComponent("<div> Added a new Component!</div>"); 
+
+      $scope.app = appState.getApp(); 
+    };
+
+    $scope.changeStyle = function(){
+      var colors = ['blue', 'red', 'green', 'yellow', 'organge', 'white'];
+      var new_body_style = {
+        'background-color': colors[Math.floor(Math.random() * (1+colors.length - 0)) + 0]
+      };
+      appState.addStyle(new_body_style, '.bodystyle');
+
+      $scope.app = appState.getApp(); 
     };
 
   });

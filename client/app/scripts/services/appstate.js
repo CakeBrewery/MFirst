@@ -9,110 +9,85 @@
  */
 angular.module('clientApp')
   .factory('appState', function () {
-    // Service logic
-    // ...
 
-
-    /* Serialize JSON into HTML style. 
-    Optional attribute class_name: Return the style inside a css class */
-    var serializeStyle = function(style, class_name){
+    /* 
+    Description: Deserialize JSON into HTML string. 
+    Parameters: style: style in JSON,
+                (optional) class_name: Return the style inside a css class named [class_name]
+    Return: css tags (wrap inside <style></style> or style="")*/
+    var deserializeStyle = function(style, class_name){
       var styleHtml = ""; 
       if(class_name){
         styleHtml += class_name + '{';
       }
       angular.forEach(style, function(value, key){
         styleHtml += key + ':' + value + '; '; 
-        console.log(styleHtml); 
       });
       if(class_name){
         styleHtml += '}';
       }
-
       return styleHtml; 
     };
 
-    var meaningOfLife = 42;
+    /* Generate Default HTML */
 
+    //Default Styles
 
-    /* Default Styles */
-    var header_style = {
+    var appState = {};
+
+    appState.styles = []; 
+    appState.components = []; 
+
+    var headerstyle = deserializeStyle({
       'color': 'white',
       'height': '50px'
-    };
+    }, '.headerstyle'); 
+    appState.styles.push(headerstyle); 
 
-    var body_style = {}; 
+    var bodystyle = deserializeStyle({
+      'background-color': 'lightblue'
+    },'.bodystyle'); 
+    appState.styles.push(bodystyle); 
 
-    var footer_style = {
+    var footerstyle = deserializeStyle({
       'background-color': '#eee',
       'height': '35px',
       'width': '100%', 
       'bottom': '0px',
       'position' : 'absolute',
       'text-align':'center',
-      'padding-top': '7px;'
-    };
+      'padding-top': '7px'
+    }, '.footerstyle');
+    appState.styles.push(footerstyle); 
 
+    //Body components
+    appState.components.push("<div><div class='jumbotron'>"+
+        "<h1>This is the Body</h1>"+
+        "<p>This is the body of the app you are working on</p></div>");
 
-    var current_app = "";
+    appState.app_name = "My Site"; 
 
-    var app_name = "";
-    var app_conf = "";
-    var app_header = "";
-    var app_body = "";
-    var app_footer = "";
-    var app_terminator = "";
-
-    /* Generate Default HTML */
-    app_name="My Site";
-    app_conf = "<html><head><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'><title>"+app_name+"</title></head><body>";
-    app_header = "<div class='navbar navbar-inverse' style='"+ serializeStyle(header_style)+"'><div class='navbar-brand'>Navbar</div></div>"; 
-    app_body = "<div style='"+serializeStyle(body_style)+"'><div class='jumbotron'><h1>This is the Body</h1><p>This is the body of the app you are working on</p></div></div>";
-    app_footer = "<div style='"+serializeStyle(footer_style)+"'><p>Your Footer!</p></div>";
-    app_terminator = "</body></html>"; 
-
-
-
-    var appState = {}; 
-
-    appState.someMethod = function () {
-      return meaningOfLife; 
-    };
-
-    appState.getHeader = function(){
-      return app_header; 
-    };
-
-    appState.getBody = function(){
-      return app_body;
-    };
-
-    appState.getFooter = function(){
-      return app_footer; 
-    };
-
-    appState.getCurrentApp = function(){
+    appState.getApp = function(){
       var app = {
-        id: current_app,
-        name: app_name,
-        conf: app_conf,
-        header: app_header,
-        body: app_body,
-        footer: app_footer, 
-        terminator: app_terminator 
+        conf : "<html><head>"+
+          "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>"+
+          "<title>"+this.app_name+"</title>"+
+          "<style>"+this.styles.join("")+"</style>"+
+          "</head><body class='bodystyle'>",
+        header: "<div class='headerstyle navbar navbar-inverse'><div class='navbar-brand'>"+this.app_name+"</div></div>", 
+        body: "<div>"+this.components.join("")+"</div>",
+        footer: "<div class='footerstyle'><p>Your Footer!</p></div>",
+        terminator: "</body></html>" 
       };
-      return app; 
+      return app;
     };
 
-    appState.setHeader = function(hdr){
-      app_header = hdr; 
+    appState.addComponent = function(component){
+      this.components.push(component); 
     };
 
-    appState.setBody = function(bdy){
-      app_body = bdy; 
-    };
-
-    appState.setFooter = function(ftr){
-      app_footer = ftr; 
+    appState.addStyle = function(style, class_name){
+      this.styles.push(deserializeStyle(style, class_name)); 
     };
 
     appState.save = function(){
@@ -120,7 +95,14 @@ angular.module('clientApp')
     };
 
     appState.getHTML = function(){
-      var html = app_conf+app_header+app_body+app_footer+app_terminator; 
+      var app = this.getApp(); 
+      var html = app.conf+app.header+app.body+app.footer+app.terminator; 
+      return html; 
+    };
+
+    appState.getPreviewHtml = function(){
+      var app = this.getApp();
+      var html = app.header+app.body+app.footer; 
       return html; 
     };
 
