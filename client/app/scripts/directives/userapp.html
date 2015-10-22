@@ -1,1 +1,11 @@
-<div ng-bind-html="trustAsHtml(app.conf+app.header+app.body+app.footer+app.terminator)"></div> 
+<div ng-type="text/html" ng-bind-html="trustAsHtml(app.conf+app.header)"></div>
+<div ng-repeat="component in app.bodycomponents">
+	<div ng-click="component.editing = !component.editing" ng-type="text/html" ng-bind-html="trustAsHtml(component.getHtml())"></div>
+	<div ng-show="component.editing">
+		Headline: <a href="#/dashboard" editable-text="component.header">{{component.header || "empty"}}</a></br>
+		Text: <a href="#/dashboard" editable-text="component.body">{{component.body || "empty"}}</a></br>
+		<button class="btn btn-primary" ng-click="component.editing=!component.editing; editComponent(component)">Stop Editing</button>
+	</div>
+</div>
+<div ng-type="text/html" ng-bind-html="trustAsHtml(app.footer+app.terminator)"></div>
+

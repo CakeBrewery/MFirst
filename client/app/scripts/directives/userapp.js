@@ -8,7 +8,7 @@
  * # userApp
  */
 angular.module('clientApp')
-  .directive('userApp', function ($sce) {
+  .directive('userApp', function ($sce, appState) {
     return {
       templateUrl: 'scripts/directives/userapp.html',
       restrict: 'E',
@@ -18,7 +18,13 @@ angular.module('clientApp')
       link: function(scope){
       	scope.trustAsHtml = function(html_string){
       		return $sce.trustAsHtml(html_string); 
-      	};	
+      	};
+
+        scope.editing = -1; 
+
+        scope.editComponent = function(component){
+          appState.components[component.id] = component;
+        };
       }
     };
   });

@@ -29,53 +29,56 @@ angular.module('clientApp')
       return styleHtml; 
     };
 
-    /* Generate Default HTML */
+    var loadDefaultStyles = function(){
+      //In the future: Load these from server
+      var styles = []; 
+      styles.push(".jumbotron{border-radius:0px;text-align: center;border-bottom: 1px solid #e5e5e5;.btn{font-size: 21px;padding: 14px 24px;};}");
+      styles.push(".container .jumbotron{border-radius:0px;}");
 
-    //Default Styles
+      var headerstyle = deserializeStyle({
+        'color': 'white',
+        'height': '50px'
+      }, '.headerstyle'); 
+      styles.push(headerstyle); 
+
+      var bodystyle = deserializeStyle({
+        'background-color': 'white'
+      },'.bodystyle'); 
+      styles.push(bodystyle); 
+
+      var footerstyle = deserializeStyle({
+        'background-color': '#eee',
+        'height': '35px',
+        'width': '100%', 
+        'bottom': '0px',
+        'position' : 'relative',
+        'text-align':'center',
+        'padding-top': '7px'
+      }, '.footerstyle');
+      styles.push(footerstyle); 
+
+      return styles; 
+    };
+
 
     var appState = {};
 
-    appState.styles = []; 
+    appState.defaultstyles = loadDefaultStyles();
+    appState.customstyles = []; 
     appState.components = []; 
-
-    var headerstyle = deserializeStyle({
-      'color': 'white',
-      'height': '50px'
-    }, '.headerstyle'); 
-    appState.styles.push(headerstyle); 
-
-    var bodystyle = deserializeStyle({
-      'background-color': 'lightblue'
-    },'.bodystyle'); 
-    appState.styles.push(bodystyle); 
-
-    var footerstyle = deserializeStyle({
-      'background-color': '#eee',
-      'height': '35px',
-      'width': '100%', 
-      'bottom': '0px',
-      'position' : 'absolute',
-      'text-align':'center',
-      'padding-top': '7px'
-    }, '.footerstyle');
-    appState.styles.push(footerstyle); 
-
-    //Body components
-    appState.components.push("<div><div class='jumbotron'>"+
-        "<h1>This is the Body</h1>"+
-        "<p>This is the body of the app you are working on</p></div>");
 
     appState.app_name = "My Site"; 
 
     appState.getApp = function(){
       var app = {
-        conf : "<html><head>"+
+        conf : "<!doctype html><html><head>"+
           "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>"+
           "<title>"+this.app_name+"</title>"+
-          "<style>"+this.styles.join("")+"</style>"+
+          "<style type='text/css'>"+this.defaultstyles.join("")+this.customstyles.join("")+"</style>"+
           "</head><body class='bodystyle'>",
         header: "<div class='headerstyle navbar navbar-inverse'><div class='navbar-brand'>"+this.app_name+"</div></div>", 
-        body: "<div>"+this.components.join("")+"</div>",
+        body: this.components.map(function(elem){return elem.getHtml();}).join(""),
+        bodycomponents: this.components,
         footer: "<div class='footerstyle'><p>Your Footer!</p></div>",
         terminator: "</body></html>" 
       };
@@ -86,8 +89,8 @@ angular.module('clientApp')
       this.components.push(component); 
     };
 
-    appState.addStyle = function(style, class_name){
-      this.styles.push(deserializeStyle(style, class_name)); 
+    appState.addCustomStyle = function(style, class_name){
+      this.customstyles.push(deserializeStyle(style, class_name)); 
     };
 
     appState.save = function(){

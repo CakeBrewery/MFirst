@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-  .controller('DashboardCtrl', function ($scope, $window, appState) {
+  .controller('DashboardCtrl', function ($scope, $window, appState, componentFactory) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -17,8 +17,13 @@ angular.module('clientApp')
 
     $scope.app = appState.getApp(); 
 
+    $scope.saveName = function(name){
+      appState.app_name = name; 
+      $scope.app = appState.getApp(); 
+    };
+
     $scope.showHtml = function(){
-    	$window.alert(appState.getHTML()); 
+      $window.alert(appState.getHTML()); 
     };
 
 
@@ -28,7 +33,8 @@ angular.module('clientApp')
     };
 
     $scope.addComponent = function(){
-      appState.addComponent("<div> Added a new Component!</div>"); 
+      var component = componentFactory.getJumbotron("Hello World", "I made my first component!");
+      appState.addComponent(component); 
 
       $scope.app = appState.getApp(); 
     };
@@ -38,7 +44,7 @@ angular.module('clientApp')
       var new_body_style = {
         'background-color': colors[Math.floor(Math.random() * (1+colors.length - 0)) + 0]
       };
-      appState.addStyle(new_body_style, '.bodystyle');
+      appState.addCustomStyle(new_body_style, '.bodystyle');
 
       $scope.app = appState.getApp(); 
     };
