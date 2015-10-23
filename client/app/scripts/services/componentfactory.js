@@ -25,7 +25,7 @@ angular.module('clientApp')
         id: 'appState.components.length',
         title: title, 
         headline: headline,
-        color: color || '#55B5FF',
+        color: color || '#55B5FF', //pallette: http://paletton.com/#uid=13x0u0kmR++00++89+++VN8Povs
         editing: false, //Need to keep track of whether we are editing this. (I'll do this better later)
       };
 
