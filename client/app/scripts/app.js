@@ -42,6 +42,6 @@ angular
         controllerAs: 'preview'
       })
       .otherwise({
-        redirectTo: '/'
+        //redirectTo: '/'
       });
   });
