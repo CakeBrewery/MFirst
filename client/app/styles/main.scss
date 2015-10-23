@@ -90,6 +90,30 @@ div {
 
 }
 
+input.editable-input {
+  background-color: transparent; 
+  border: 0px; 
+  width: 100%; 
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+
+textarea.editable-input {
+  background-color: transparent; 
+  border: 0px; 
+  padding:0px;
+  width: 100%; 
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+}
+
+.editable-click, a.editable-click {
+  border-bottom: 0px;
+}
+
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
