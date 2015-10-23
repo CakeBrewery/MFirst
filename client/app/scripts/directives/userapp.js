@@ -20,8 +20,6 @@ angular.module('clientApp')
       		return $sce.trustAsHtml(html_string); 
       	};
 
-        scope.editing = -1; 
-
         scope.editComponent = function(component){
           appState.components[component.id] = component;
         };

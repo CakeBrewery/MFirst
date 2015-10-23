@@ -32,7 +32,7 @@ angular.module('clientApp')
     var loadDefaultStyles = function(){
       //In the future: Load these from server
       var styles = []; 
-      styles.push(".jumbotron{border-radius:0px;text-align: center;border-bottom: 1px solid #e5e5e5;.btn{font-size: 21px;padding: 14px 24px;};}");
+      styles.push(".jumbotron{border-radius:0px;text-align: left;padding-left:10%; border-bottom: 1px solid #e5e5e5;.btn{font-size: 21px;padding: 14px 24px;};}");
       styles.push(".container .jumbotron{border-radius:0px;}");
 
       var headerstyle = deserializeStyle({
@@ -76,17 +76,18 @@ angular.module('clientApp')
           "<title>"+this.app_name+"</title>"+
           "<style type='text/css'>"+this.defaultstyles.join("")+this.customstyles.join("")+"</style>"+
           "</head><body class='bodystyle'>",
-        header: "<div class='headerstyle navbar navbar-inverse'><div class='navbar-brand'>"+this.app_name+"</div></div>", 
+        header: "",//"<div class='headerstyle navbar navbar-inverse' style='margin-bottom:0px;'><div class='navbar-brand'>"+this.app_name+"</div></div>", 
         body: this.components.map(function(elem){return elem.getHtml();}).join(""),
         bodycomponents: this.components,
-        footer: "<div class='footerstyle'><p>Your Footer!</p></div>",
+        footer: "",//"<div class='footerstyle'><p>Your Footer!</p></div>",
         terminator: "</body></html>" 
       };
       return app;
     };
 
-    appState.addComponent = function(component){
+    appState.addComponent = function(component, callback){
       this.components.push(component); 
+      callback();
     };
 
     appState.addCustomStyle = function(style, class_name){

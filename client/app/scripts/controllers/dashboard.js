@@ -39,10 +39,21 @@ angular.module('clientApp')
       $scope.app = appState.getApp(); 
     };
 
+    $scope.addBanner = function(){
+      var component = componentFactory.getBanner(
+        "Welcome to MFirst", 
+        "This is the place to look for really cool blog posts");
+      appState.addComponent(component, function(){
+        $scope.app = appState.getApp(); 
+      }); 
+
+    }; 
+
     $scope.changeStyle = function(){
-      var colors = ['blue', 'red', 'green', 'yellow', 'organge', 'white'];
+      //var colors = ['blue', 'red', 'green', 'yellow', 'organge', 'white'];
       var new_body_style = {
-        'background-color': colors[Math.floor(Math.random() * (1+colors.length - 0)) + 0]
+        //'background-color': colors[Math.floor(Math.random() * (1+colors.length - 0)) + 0]
+        'background-color': '#408E2F'
       };
       appState.addCustomStyle(new_body_style, '.bodystyle');
 

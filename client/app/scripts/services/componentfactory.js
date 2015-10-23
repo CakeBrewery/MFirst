@@ -18,8 +18,32 @@ angular.module('clientApp')
       callback();  
     };
 
+    component.getBanner = function(title, headline, color){
+
+      var component = {
+        type: 'banner',
+        id: 'appState.components.length',
+        title: title, 
+        headline: headline,
+        color: color || '#55B5FF',
+        editing: false, //Need to keep track of whether we are editing this. (I'll do this better later)
+      };
+
+      initializeComponent(component, function(){
+
+        component.getHtml = function(){
+          return "<div class='jumbotron' style='background-color:"+component.color+";'><h1 style='color:white'>"+
+          component.title+"</h1><p style='color:#C2E5FF'>"+
+          component.headline+
+          "</p></div>";
+        };
+      });
+
+      return component; 
+    };
+
     component.getJumbotron = function(header, body){
-      var jumbotron = {
+      var component = {
         type: 'jumbotron',
         id: appState.components.length,
         header: header, 
@@ -27,13 +51,13 @@ angular.module('clientApp')
         editing: false,
       };
 
-      initializeComponent(jumbotron, function(){
-        jumbotron.getHtml = function(){
-          return "<div class='jumbotron'><h3>"+jumbotron.header+"</h3><p>"+jumbotron.body+"</p></div>";
+      initializeComponent(component, function(){
+        component.getHtml = function(){
+          return "<div class='jumbotron'><h3>"+component.header+"</h3><p style='white-space:pre-wrap;'>"+component.body+"</p></div>";
         };
       });
 
-      return jumbotron; 
+      return component; 
     };
 
     // Public API here

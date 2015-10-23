@@ -2,9 +2,11 @@
 <div ng-repeat="component in app.bodycomponents">
 	<div ng-click="component.editing = !component.editing" ng-type="text/html" ng-bind-html="trustAsHtml(component.getHtml())"></div>
 	<div ng-show="component.editing">
-		Headline: <a href="#/dashboard" editable-text="component.header">{{component.header || "empty"}}</a></br>
-		Text: <a href="#/dashboard" editable-text="component.body">{{component.body || "empty"}}</a></br>
-		<button class="btn btn-primary" ng-click="component.editing=!component.editing; editComponent(component)">Stop Editing</button>
+		<div class="well well-lg" style="text-align: center">
+			<a href="#/dashboard" editable-text="component.title">{{component.title || "empty"}}</a></br>
+			<a href="#/dashboard" editable-textarea="component.headline" e-rows="7" e-cols="40">{{component.headline || "empty"}}</a></br>
+			<button class="btn btn-primary" ng-click="component.editing=!component.editing; editComponent(component)">Stop Editing</button>
+		</div>
 	</div>
 </div>
 <div ng-type="text/html" ng-bind-html="trustAsHtml(app.footer+app.terminator)"></div>
