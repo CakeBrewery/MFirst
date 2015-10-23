@@ -46,15 +46,15 @@ angular.module('clientApp')
           return "<div class='jumbotron' style='background-color:"+component.bg_color+";'>"+
             //Editing Title
             "<h1 style='color:"+component.title_color+";'>"+
-            "<a style='color:"+component.title_color+";' href='#/dashboard' editable-text='component.title' buttons='no'>"+
+            "<span style='color:"+component.title_color+";' editable-text='component.title' buttons='no'>"+
               component.title+
-            "</a>"+
+            "</span>"+
             "</h1>"+
             //Editing Headline 
             "<p style='color:"+component.headline_color+";'>"+
-            "<a style='color:"+component.headline_color+";' href='#/dashboard' editable-textarea='component.headline' buttons='no'>"+
+            "<span style='color:"+component.headline_color+";' editable-text='component.headline' buttons='no'>"+
               component.headline+
-            "</a>"+
+            "</span>"+
             "</p>"+
           "</div>";
         };
