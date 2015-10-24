@@ -40,14 +40,18 @@ angular.module('clientApp')
     };
 
     $scope.addBanner = function(){
-      var component = componentFactory.getBanner(
-        "Welcome to MFirst", 
-        "This is the place to look for really cool blog posts");
+      var component = componentFactory.getBanner();
       appState.addComponent(component, function(){
         $scope.app = appState.getApp(); 
       }); 
-
     }; 
+
+    $scope.addPost = function(){
+      var component = componentFactory.getPost();
+      appState.addComponent(component, function(){
+        $scope.app = appState.getApp(); 
+      });
+    };
 
     $scope.changeStyle = function(){
       //var colors = ['blue', 'red', 'green', 'yellow', 'organge', 'white'];

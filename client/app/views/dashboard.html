@@ -3,22 +3,19 @@
     <p> Welcome to the dashboard. From here you can take a preview of how your site will look.</p> 
 
     <form novalidate class="simple-form">
-
         <input type="text" ng-model="form.appname" placeholder="Name your site" />
-        <button class="btn btn-primary" ng-click="saveName(form.appname)">save</button>
-        
+        <button class="btn btn-primary" ng-click="saveName(form.appname)">save</button>   
     </form>
+
+    <h3>Editing Tools</h3>
+    <button class="btn btn-primary" ng-click="addBanner()">Add Banner</button>  
+    <button class="btn btn-primary" ng-click="addPost()">Add Post</button> 
 
     <h2>Preview</h2>
     <div class="userapp-container bodystyle">
         <user-app app="app" style=""></user-app>    
     </div> 
 
-    <div>
-        <button class="btn btn-primary" ng-click="showApp()">Full Preview</button>  
-        <button class="btn btn-primary" ng-click="showHtml()">Get HTML</button> </br>
-        <h3>Editing Tools</h3>
-        <button class="btn btn-primary" ng-click="addBanner()">Add Banner</button>  
-        <button class="btn btn-primary" ng-click="changeStyle()">Change Style</button>
-    </div>
+    <button class="btn btn-primary" ng-click="showApp()">Full Preview</button>  
+    <button class="btn btn-primary" ng-click="showHtml()">Get HTML</button> </br>
 </div> 
